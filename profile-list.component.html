@@ -1,0 +1,17 @@
+<div *ngFor="let profile of profiles">
+  <h2>{{ profile.name }}</h2>
+  <p>{{ profile.description }}</p>
+  <button (click)="showSummary(profile)">Summary</button>
+</div>
+<app-map [latitude]="selectedProfile?.latitude" [longitude]="selectedProfile?.longitude"></app-map>
+
+
+typescript
+// profile-list.component.ts
+// ...
+showSummary(profile: any): void {
+  this.selectedProfile = profile;
+  this.mapService.initializeMap(document.getElementById('map'), profile.latitude, profile.longitude);
+  
+this.mapService.addMarker(profile.latitude, profile.longitude);
+}
